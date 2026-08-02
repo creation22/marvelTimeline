@@ -143,7 +143,7 @@ const EXTRA_URLS = {
     "https://upload.wikimedia.org/wikipedia/en/5/5c/Samuel_L._Jackson_as_Nick_Fury.jpg",
   ],
   "natasha-romanoff": [
-    "https://upload.wikimedia.org/wikipedia/en/0/0b/Scarlett_Johansson-Black_Widow.jpg",
+    "https://terrigen-cdn-dev.marvel.com/content/prod/1x/blackwidow_lob_crd_05.jpg",
   ],
   "bruce-banner": [
     "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3a/Mark_Ruffalo_%2848470894776%29_%28cropped%29.jpg/800px-Mark_Ruffalo_%2848470894776%29_%28cropped%29.jpg",
@@ -200,6 +200,7 @@ const FORCE_REFRESH = new Set([
   "vulture",
   "ned-leeds",
   "yelena-belova",
+  "natasha-romanoff",
   "red-guardian",
   "kate-bishop",
   "kingpin",

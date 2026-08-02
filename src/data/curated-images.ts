@@ -52,7 +52,8 @@ export const CURATED_MOVIE_IMAGES: Record<string, string[]> = {
     "https://upload.wikimedia.org/wikipedia/en/5/53/Captain_America_Civil_War_poster.jpg",
   ],
   "black-widow": [
-    "https://upload.wikimedia.org/wikipedia/en/1/05/Black_Widow_%282021_film%29_poster.jpg",
+    "https://image.tmdb.org/t/p/w780/qAZ0pzat24kLdO3o8ejmbLxyOac.jpg",
+    "https://terrigen-cdn-dev.marvel.com/content/prod/1x/blackwidow_lob_crd_04.jpg",
   ],
   "black-panther": [
     "https://upload.wikimedia.org/wikipedia/en/d/d6/Black_Panther_%28film%29_poster.jpg",
@@ -186,7 +187,8 @@ export const CURATED_CHARACTER_IMAGES: Record<string, string[]> = {
     "https://upload.wikimedia.org/wikipedia/en/9/9b/Chris_Evans_as_Steve_Rogers_Captain_America.jpg",
   ],
   "natasha-romanoff": [
-    "https://upload.wikimedia.org/wikipedia/en/0/0b/Scarlett_Johansson-Black_Widow.jpg",
+    "https://terrigen-cdn-dev.marvel.com/content/prod/1x/blackwidow_lob_crd_05.jpg",
+    "https://image.tmdb.org/t/p/original/8m21eocprLYuW0ywveIgThk6VM.jpg",
   ],
   thanos: [
     "https://upload.wikimedia.org/wikipedia/en/6/6f/Thanos_in_the_MCU.png",
