@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import type { CharacterCatalogItem } from "@/types";
 import type { CatalogItem } from "@/data/catalog";
 import { PremiumNav } from "./PremiumNav";
+import { SiteFooter } from "./SiteFooter";
 import { SafeNeoImage } from "./SafeNeoImage";
 import { characterHeroOrFallback, moviePosterOrFallback } from "@/lib/images";
 import { getWatchLinks } from "@/lib/watch";
@@ -376,6 +377,7 @@ export function CharacterShowcase({
           ))}
         </div>
       </div>
+      <SiteFooter />
     </div>
   );
 }

@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import type { ComicReadingOrder, ComicEntry } from "@/data/comic-reading-orders";
 import { getTotalComicEntries } from "@/data/comic-reading-orders";
 import { PremiumNav } from "./PremiumNav";
+import { SiteFooter } from "./SiteFooter";
 import { getComicReadLinks } from "@/lib/comics";
 
 function Marquee({ text }: { text: string }) {
@@ -267,6 +268,7 @@ export function ComicsHub({ orders }: { orders: ComicReadingOrder[] }) {
           </Link>
         </footer>
       </div>
+      <SiteFooter />
     </div>
   );
 }

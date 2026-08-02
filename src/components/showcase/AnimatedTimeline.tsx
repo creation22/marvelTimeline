@@ -17,6 +17,7 @@ import {
 } from "@/lib/watch-progress";
 import { SafeNeoImage } from "./SafeNeoImage";
 import { PremiumNav } from "./PremiumNav";
+import { SiteFooter } from "./SiteFooter";
 import { CharacterPathRail, collectPathCharacters } from "./CharacterPathRail";
 
 const TimelineAtmosphere = dynamic(
@@ -431,6 +432,7 @@ export function AnimatedTimelineShowcase({ items }: { items: CatalogItem[] }) {
         </motion.footer>
       </div>
       </div>
+      <SiteFooter />
     </div>
   );
 }
