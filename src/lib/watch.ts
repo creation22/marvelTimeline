@@ -6,29 +6,22 @@ export interface WatchLink {
   primary?: boolean;
 }
 
-/** Verified Disney+ deep links (fallback is title search) */
-const DISNEY_PLUS_DIRECT: Partial<Record<string, string>> = {
-  "iron-man": "https://www.disneyplus.com/movies/marvel-studios-iron-man/1SW2IYJ4GDxw",
-  "the-avengers": "https://www.disneyplus.com/movies/marvel-studios-the-avengers/1UzfBjsDF18H",
-  "avengers-infinity-war":
-    "https://www.disneyplus.com/movies/marvel-studios-avengers-infinity-war/1WEuZ3H6yLGV",
-  "avengers-endgame":
-    "https://www.disneyplus.com/movies/marvel-studios-avengers-endgame/3hZbMYWN8gNR",
-  wandavision: "https://www.disneyplus.com/series/wandavision/1V5bN9s7wZ3F",
-  "loki-s1": "https://www.disneyplus.com/series/loki/6pJH0d4wUQig",
-  "loki-s2": "https://www.disneyplus.com/series/loki/6pJH0d4wUQig",
-  "falcon-winter-soldier":
-    "https://www.disneyplus.com/series/the-falcon-and-the-winter-soldier/4Rg3e3G8xb7K",
-  hawkeye: "https://www.disneyplus.com/series/hawkeye/4SrNo6A7N7eL",
-  "moon-knight": "https://www.disneyplus.com/series/moon-knight/4S3oOF1knocS",
-  "deadpool-wolverine":
-    "https://www.disneyplus.com/movies/marvel-studios-deadpool-and-wolverine/3V08MFnMmfjR",
-};
-
-function disneyPlusUrl(slug: string, title: string): string {
-  const direct = DISNEY_PLUS_DIRECT[slug];
-  if (direct) return direct;
+/**
+ * Disney+ deep links like /movies/.../ID are unreliable:
+ * - Disney has moved many titles to /browse/entity-… URLs
+ * - In India, disneyplus.com redirects to JioHotstar and drops old deep-link paths
+ *   (users land on Hotstar home instead of the title)
+ *
+ * Title search is the reliable option: India keeps ?q= on the Hotstar redirect,
+ * and other regions open Disney+ search for that title.
+ */
+function disneyPlusSearchUrl(title: string): string {
   return `https://www.disneyplus.com/browse/search?q=${encodeURIComponent(title)}`;
+}
+
+/** India-friendly Hotstar search (same catalog as Disney+ Hotstar / JioHotstar). */
+function hotstarSearchUrl(title: string): string {
+  return `https://www.hotstar.com/in/explore?search_query=${encodeURIComponent(title)}`;
 }
 
 export function getWatchLinks(slug: string): WatchLink[] {
@@ -38,8 +31,12 @@ export function getWatchLinks(slug: string): WatchLink[] {
   return [
     {
       platform: "Disney+",
-      url: disneyPlusUrl(slug, item.title),
+      url: disneyPlusSearchUrl(item.title),
       primary: true,
+    },
+    {
+      platform: "JioHotstar",
+      url: hotstarSearchUrl(item.title),
     },
   ];
 }
