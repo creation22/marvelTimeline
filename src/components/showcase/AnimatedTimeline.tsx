@@ -82,7 +82,7 @@ function Hero({ count }: { count: number }) {
         transition={{ duration: 5, repeat: Infinity }}
       />
 
-      <div className="relative z-10 mx-auto max-w-6xl pr-10 sm:pr-12 md:pr-0">
+      <div className="relative z-10 mx-auto max-w-6xl md:pr-0">
         <motion.h1
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -220,32 +220,34 @@ function TimelineEntry({
       id={item.slug}
     >
       <div
-        className="pt-hard group grid grid-cols-[108px_minmax(0,1fr)] items-stretch overflow-hidden transition-shadow duration-200 hover:shadow-[6px_6px_0_var(--pt-ink)] sm:grid-cols-[128px_minmax(0,1fr)] md:grid-cols-[148px_minmax(0,1fr)]"
+        className="pt-hard group grid grid-cols-[108px_minmax(0,1fr)] items-stretch overflow-hidden transition-shadow duration-200 hover:shadow-[6px_6px_0_var(--pt-ink)] sm:grid-cols-[132px_minmax(0,1fr)] md:grid-cols-[152px_minmax(0,1fr)] lg:grid-cols-[168px_minmax(0,1fr)]"
         style={watched ? { outline: "2px solid #c8ff00", outlineOffset: "-2px" } : undefined}
       >
-        <div className="relative isolate self-stretch border-r-2 border-[var(--pt-ink)] bg-[var(--pt-bg)]">
+        <div className="relative isolate w-full border-r-2 border-[var(--pt-ink)] bg-[var(--pt-bg)]">
           <div
             className="absolute left-0 top-0 z-10 border-b-2 border-r-2 border-[var(--pt-ink)] px-1.5 py-0.5 text-[9px] font-bold text-white sm:px-2 sm:py-1 sm:text-[10px]"
             style={{ background: accent }}
           >
             {String(index + 1).padStart(2, "0")}
           </div>
-          {watched && (
-            <div className="absolute bottom-0 right-0 z-10 border-l-2 border-t-2 border-[var(--pt-ink)] bg-[var(--pt-lime)] px-1.5 py-0.5 text-[8px] font-bold uppercase tracking-wider text-[var(--pt-ink)]">
-              Done
-            </div>
-          )}
-          <SafeNeoImage
-            src={moviePosterOrFallback(item.slug, item.poster)}
-            fallback={item.poster}
-            alt={item.title}
-            width={296}
-            height={444}
-            className="absolute inset-0 h-full w-full object-cover object-center"
-            priority={index < 2}
-          />
-          {/* Reserve portrait ratio so the poster never squashes on mobile */}
-          <div className="aspect-[2/3] w-full" aria-hidden />
+          {/* Locked 2:3 image — column may be taller; leftover stays cream, poster never crops */}
+          <div className="relative aspect-[2/3] w-full overflow-hidden">
+            <SafeNeoImage
+              src={moviePosterOrFallback(item.slug, item.poster)}
+              fallback={item.poster}
+              alt={item.title}
+              width={500}
+              height={750}
+              sizes="(max-width: 639px) 108px, 168px"
+              className="absolute inset-0 h-full w-full object-cover object-center"
+              priority={index < 2}
+            />
+            {watched && (
+              <div className="absolute bottom-0 right-0 z-10 border-l-2 border-t-2 border-[var(--pt-ink)] bg-[var(--pt-lime)] px-1.5 py-0.5 text-[8px] font-bold uppercase tracking-wider text-[var(--pt-ink)]">
+                Done
+              </div>
+            )}
+          </div>
         </div>
 
         <div className="flex min-w-0 flex-col justify-center p-2.5 sm:p-4 md:p-5">
@@ -272,11 +274,11 @@ function TimelineEntry({
             </span>
           </div>
 
-          <h2 className="font-display text-base font-bold leading-tight tracking-tight sm:text-xl md:text-2xl">
+          <h2 className="font-display text-[15px] font-bold leading-snug tracking-tight sm:text-xl md:text-2xl">
             {item.title}
           </h2>
 
-          <p className="mt-1.5 line-clamp-2 text-[11px] leading-relaxed text-[var(--pt-muted)] sm:mt-2 sm:text-[12px] md:text-[13px]">
+          <p className="mt-1 line-clamp-2 text-[11px] leading-relaxed text-[var(--pt-muted)] sm:mt-2 sm:text-[12px] md:text-[13px]">
             {item.overview}
           </p>
 
@@ -369,7 +371,7 @@ export function AnimatedTimelineShowcase({ items }: { items: CatalogItem[] }) {
 
       <Hero count={items.length} />
 
-      <div className="mx-auto max-w-6xl px-3 pb-28 pr-[4.25rem] sm:px-4 sm:pb-28 sm:pr-20 md:px-6 md:pb-32 md:pr-28 lg:pr-32">
+      <div className="mx-auto max-w-6xl px-3 pb-28 sm:px-4 sm:pb-28 sm:pr-20 md:px-6 md:pb-32 md:pr-28 lg:pr-32">
         <div className="mb-6 grid grid-cols-4 gap-2 sm:mb-8 sm:gap-3">
           <Stat value={movies} label="Films" accent="#c8ff00" />
           <Stat value={series} label="Series" accent="#2b6cff" />

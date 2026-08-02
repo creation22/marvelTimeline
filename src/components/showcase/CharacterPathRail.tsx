@@ -76,7 +76,7 @@ export function CharacterPathRail({
 
   return (
     <aside
-      className="pointer-events-none fixed right-1 top-20 z-30 flex h-[calc(100vh-6.5rem)] w-[52px] sm:right-2 sm:top-24 sm:h-[calc(100vh-7rem)] sm:w-[72px] md:w-[88px] lg:right-4 lg:w-[100px]"
+      className="pointer-events-none fixed right-2 top-24 z-30 hidden h-[calc(100vh-7rem)] w-[72px] sm:flex md:w-[88px] lg:right-4 lg:w-[100px]"
       aria-label="Character journey path"
     >
       <div className="relative h-full w-full">

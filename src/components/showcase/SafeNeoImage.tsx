@@ -16,6 +16,7 @@ export function SafeNeoImage({
   height,
   className,
   priority,
+  sizes,
 }: {
   src: string;
   fallback?: string;
@@ -24,6 +25,7 @@ export function SafeNeoImage({
   height: number;
   className?: string;
   priority?: boolean;
+  sizes?: string;
 }) {
   const [current, setCurrent] = useState(src);
   const [failed, setFailed] = useState(false);
@@ -48,6 +50,7 @@ export function SafeNeoImage({
       alt={alt}
       width={width}
       height={height}
+      sizes={sizes}
       className={className}
       priority={priority}
       onError={() => {
