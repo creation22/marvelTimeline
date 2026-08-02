@@ -1,5 +1,4 @@
 import { TIMELINE_CATALOG } from "@/data/catalog";
-import { TMDB_IDS } from "@/data/tmdb-ids";
 
 export interface WatchLink {
   platform: string;
@@ -32,36 +31,17 @@ function disneyPlusUrl(slug: string, title: string): string {
   return `https://www.disneyplus.com/browse/search?q=${encodeURIComponent(title)}`;
 }
 
-function tmdbWatchUrl(slug: string): string | null {
-  const entry = TMDB_IDS[slug];
-  if (!entry) return null;
-  const type = entry.type === "movie" ? "movie" : "tv";
-  return `https://www.themoviedb.org/${type}/${entry.id}/watch`;
-}
-
 export function getWatchLinks(slug: string): WatchLink[] {
   const item = TIMELINE_CATALOG.find((i) => i.slug === slug);
   if (!item) return [];
 
-  const links: WatchLink[] = [
+  return [
     {
       platform: "Disney+",
       url: disneyPlusUrl(slug, item.title),
       primary: true,
     },
   ];
-
-  const tmdb = tmdbWatchUrl(slug);
-  if (tmdb) {
-    links.push({ platform: "Where to Watch", url: tmdb });
-  }
-
-  links.push({
-    platform: "JustWatch",
-    url: `https://www.justwatch.com/us/search?q=${encodeURIComponent(item.title)}`,
-  });
-
-  return links;
 }
 
 export function getPrimaryWatchLink(slug: string): WatchLink | null {

@@ -123,7 +123,7 @@ export function CharacterPathRail({
               onMouseLeave={() => setHovered(null)}
             >
               <div
-                className="h-7 w-7 overflow-hidden border-2 border-[var(--pt-ink)] bg-white sm:h-9 sm:w-9 lg:h-11 lg:w-11"
+                className="h-8 w-8 overflow-hidden border-2 border-[var(--pt-ink)] bg-[var(--pt-bg)] sm:h-9 sm:w-9 lg:h-11 lg:w-11"
                 style={{
                   boxShadow: visible
                     ? `3px 3px 0 ${char.accent}`
@@ -134,7 +134,7 @@ export function CharacterPathRail({
                 <img
                   src={char.image}
                   alt={char.name}
-                  className="h-full w-full object-cover object-top"
+                  className="h-full w-full object-cover object-[center_18%]"
                   loading="lazy"
                   decoding="async"
                 />

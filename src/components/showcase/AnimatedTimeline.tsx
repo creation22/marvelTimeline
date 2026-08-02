@@ -136,30 +136,32 @@ function Hero({ count }: { count: number }) {
 }
 
 function CharacterStrip({ slugs }: { slugs: string[] }) {
+  const max = 5;
   return (
-    <div className="mt-2 flex flex-wrap gap-1 sm:mt-3 sm:gap-1.5">
-      {slugs.slice(0, 6).map((slug) => {
+    <div className="mt-2.5 flex items-center gap-1.5 sm:mt-3 sm:gap-2">
+      {slugs.slice(0, max).map((slug) => {
         const char = getCharacterBySlug(slug);
         if (!char) return null;
         return (
           <motion.div
             key={slug}
-            whileHover={{ y: -3 }}
-            className="h-6 w-6 overflow-hidden border-2 border-[var(--pt-ink)] bg-white shadow-[2px_2px_0_var(--pt-ink)] sm:h-8 sm:w-8"
+            whileHover={{ y: -2 }}
+            className="relative h-8 w-8 shrink-0 overflow-hidden border-2 border-[var(--pt-ink)] bg-[var(--pt-bg)] shadow-[2px_2px_0_var(--pt-ink)] sm:h-9 sm:w-9"
             title={char.name}
           >
             <img
               src={characterHeroOrFallback(slug)}
-              alt={char.name}
-              className="h-full w-full object-cover object-top"
+              alt=""
+              className="h-full w-full object-cover object-[center_15%]"
               loading="lazy"
+              decoding="async"
             />
           </motion.div>
         );
       })}
-      {slugs.length > 6 && (
-        <span className="flex h-6 min-w-6 items-center justify-center border-2 border-[var(--pt-ink)] bg-[var(--pt-ink)] px-1 text-[9px] font-bold text-white sm:h-8 sm:min-w-8 sm:px-1.5 sm:text-[10px]">
-          +{slugs.length - 6}
+      {slugs.length > max && (
+        <span className="flex h-8 min-w-8 items-center justify-center border-2 border-[var(--pt-ink)] bg-[var(--pt-ink)] px-1.5 text-[9px] font-bold text-white sm:h-9 sm:min-w-9 sm:text-[10px]">
+          +{slugs.length - max}
         </span>
       )}
     </div>
@@ -229,10 +231,10 @@ function TimelineEntry({
       id={item.slug}
     >
       <div
-        className="pt-hard group grid grid-cols-[96px_minmax(0,1fr)] overflow-hidden transition-shadow duration-200 hover:shadow-[6px_6px_0_var(--pt-ink)] sm:grid-cols-[120px_minmax(0,1fr)] md:grid-cols-[140px_minmax(0,1fr)]"
+        className="pt-hard group grid grid-cols-[108px_minmax(0,1fr)] items-stretch overflow-hidden transition-shadow duration-200 hover:shadow-[6px_6px_0_var(--pt-ink)] sm:grid-cols-[128px_minmax(0,1fr)] md:grid-cols-[148px_minmax(0,1fr)]"
         style={watched ? { outline: "2px solid #c8ff00", outlineOffset: "-2px" } : undefined}
       >
-        <div className="relative border-r-2 border-[var(--pt-ink)]">
+        <div className="relative isolate self-stretch border-r-2 border-[var(--pt-ink)] bg-[var(--pt-bg)]">
           <div
             className="absolute left-0 top-0 z-10 border-b-2 border-r-2 border-[var(--pt-ink)] px-1.5 py-0.5 text-[9px] font-bold text-white sm:px-2 sm:py-1 sm:text-[10px]"
             style={{ background: accent }}
@@ -248,14 +250,16 @@ function TimelineEntry({
             src={moviePosterOrFallback(item.slug, item.poster)}
             fallback={item.poster}
             alt={item.title}
-            width={280}
-            height={420}
-            className="h-full min-h-[148px] w-full object-cover sm:min-h-[168px] md:min-h-[180px]"
+            width={296}
+            height={444}
+            className="absolute inset-0 h-full w-full object-cover object-center"
             priority={index < 2}
           />
+          {/* Reserve portrait ratio so the poster never squashes on mobile */}
+          <div className="aspect-[2/3] w-full" aria-hidden />
         </div>
 
-        <div className="flex min-w-0 flex-col justify-center p-3 sm:p-4 md:p-5">
+        <div className="flex min-w-0 flex-col justify-center p-2.5 sm:p-4 md:p-5">
           <div className="mb-1.5 flex flex-wrap items-center gap-1 sm:mb-2 sm:gap-1.5">
             <span
               className="border border-[var(--pt-ink)] px-1.5 py-0.5 text-[8px] font-bold uppercase tracking-wider text-white sm:px-2 sm:text-[9px]"

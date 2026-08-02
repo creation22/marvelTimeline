@@ -1,5 +1,6 @@
 import { TIMELINE_CATALOG, CHARACTER_CATALOG } from "@/data/catalog";
 import { CHARACTER_STORIES } from "@/data/character-stories";
+import { CHARACTER_POWERS } from "@/data/character-powers";
 import { CHARACTER_APPEARANCES } from "@/data/character-appearances";
 import { REDDIT_WATCH_ORDER_SLUGS } from "@/data/watch-order";
 import type { CatalogItem } from "@/data/catalog";
@@ -32,6 +33,11 @@ export function getCharacterStory(slug: string): string {
   const fromStories = CHARACTER_STORIES[slug];
   if (fromStories) return fromStories;
   return getCharacter(slug)?.bio ?? "";
+}
+
+/** Plain-English powers / abilities for a character */
+export function getCharacterPowers(slug: string): string[] {
+  return CHARACTER_POWERS[slug] ?? [];
 }
 
 /** Titles a character appears in — explicit filmography + featuredCharacters, watch order */

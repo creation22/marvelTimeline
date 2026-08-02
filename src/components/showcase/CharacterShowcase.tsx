@@ -14,6 +14,7 @@ import { cn } from "@/lib/utils";
 type Char = CharacterCatalogItem;
 type AppearanceMap = Record<string, CatalogItem[]>;
 type StoryMap = Record<string, string>;
+type PowersMap = Record<string, string[]>;
 
 const STATUS_COLOR: Record<string, string> = {
   ALIVE: "#c8ff00",
@@ -88,10 +89,12 @@ function AppearanceCard({ item }: { item: CatalogItem }) {
 function CharacterDetail({
   character,
   story,
+  powers,
   appearances,
 }: {
   character: Char;
   story: string;
+  powers: string[];
   appearances: CatalogItem[];
 }) {
   const statusColor = STATUS_COLOR[character.status] ?? "#c8ff00";
@@ -112,7 +115,7 @@ function CharacterDetail({
             alt={character.name}
             width={560}
             height={750}
-            className="aspect-[3/4] h-full w-full object-cover object-top"
+            className="aspect-[3/4] h-full w-full object-cover object-[center_12%]"
             priority
           />
           <span
@@ -147,11 +150,29 @@ function CharacterDetail({
             </span>
           </div>
 
-          <div className="mt-3 border-t-2 border-[var(--pt-ink)] pt-3 sm:mt-5 sm:pt-4">
+          {powers.length > 0 && (
+            <div className="mt-3 border-t-2 border-[var(--pt-ink)] pt-3 sm:mt-4 sm:pt-4">
+              <h3 className="mb-1.5 text-[9px] font-bold uppercase tracking-[0.25em] text-[var(--pt-muted)] sm:mb-2 sm:text-[10px]">
+                Powers &amp; skills
+              </h3>
+              <div className="flex flex-wrap gap-1.5">
+                {powers.map((power) => (
+                  <span
+                    key={power}
+                    className="border-2 border-[var(--pt-ink)] bg-[var(--pt-lime)] px-2 py-1 text-[10px] font-semibold leading-snug text-[var(--pt-ink)] shadow-[2px_2px_0_var(--pt-ink)] sm:text-[11px]"
+                  >
+                    {power}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+
+          <div className="mt-3 border-t-2 border-[var(--pt-ink)] pt-3 sm:mt-4 sm:pt-4">
             <h3 className="mb-1.5 text-[9px] font-bold uppercase tracking-[0.25em] text-[var(--pt-muted)] sm:mb-2 sm:text-[10px]">
               Background story
             </h3>
-            <p className="max-w-2xl text-[11px] leading-relaxed text-[var(--pt-muted)] sm:text-[13px] md:text-sm">
+            <p className="max-w-2xl text-[12px] leading-relaxed text-[var(--pt-muted)] sm:text-[13px] md:text-sm">
               {story}
             </p>
           </div>
@@ -220,7 +241,7 @@ function CharacterTile({
           alt={character.name}
           width={280}
           height={370}
-          className="h-full w-full object-cover object-top"
+          className="h-full w-full object-cover object-[center_12%]"
         />
       </div>
       <div className="px-2 py-2">
@@ -235,10 +256,12 @@ function CharacterTile({
 export function CharacterShowcase({
   characters,
   stories,
+  powersBySlug,
   appearancesBySlug,
 }: {
   characters: Char[];
   stories: StoryMap;
+  powersBySlug: PowersMap;
   appearancesBySlug: AppearanceMap;
 }) {
   const [selected, setSelected] = useState<Char>(characters[0]);
@@ -258,12 +281,13 @@ export function CharacterShowcase({
 
   const alive = characters.filter((c) => c.status === "ALIVE").length;
   const story = stories[selected.slug] ?? selected.bio;
+  const powers = powersBySlug[selected.slug] ?? [];
   const appearances = appearancesBySlug[selected.slug] ?? [];
 
   return (
     <div className="premium-timeline relative">
       <Marquee
-        text={`${characters.length} MCU characters /// Tap a hero for story & filmography /// Solo portraits`}
+        text={`${characters.length} MCU characters /// Stories & powers in plain English /// Solo portraits`}
       />
       <PremiumNav />
 
@@ -295,8 +319,8 @@ export function CharacterShowcase({
             </span>
           </motion.h1>
           <p className="mt-3 max-w-lg text-[13px] leading-relaxed text-[var(--pt-muted)] md:text-sm">
-            Pick a character for their background story and every film or series they appear in —
-            same language as the timeline.
+            Tap a character for a simple background story, their powers, and every film or series
+            they appear in.
           </p>
 
           <div className="mt-5 grid grid-cols-4 gap-2 sm:gap-3">
@@ -321,6 +345,7 @@ export function CharacterShowcase({
               key={selected.slug}
               character={selected}
               story={story}
+              powers={powers}
               appearances={appearances}
             />
           </AnimatePresence>
