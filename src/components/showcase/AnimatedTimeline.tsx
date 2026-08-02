@@ -127,7 +127,7 @@ function Hero({ count }: { count: number }) {
 function CharacterStrip({ slugs }: { slugs: string[] }) {
   const max = 5;
   return (
-    <div className="mt-2.5 flex items-center gap-1.5 sm:mt-3 sm:gap-2">
+    <div className="mt-2.5 hidden items-center gap-1.5 sm:mt-3 sm:flex sm:gap-2">
       {slugs.slice(0, max).map((slug) => {
         const char = getCharacterBySlug(slug);
         if (!char) return null;
@@ -223,31 +223,27 @@ function TimelineEntry({
         className="pt-hard group grid grid-cols-[108px_minmax(0,1fr)] items-stretch overflow-hidden transition-shadow duration-200 hover:shadow-[6px_6px_0_var(--pt-ink)] sm:grid-cols-[132px_minmax(0,1fr)] md:grid-cols-[152px_minmax(0,1fr)] lg:grid-cols-[168px_minmax(0,1fr)]"
         style={watched ? { outline: "2px solid #c8ff00", outlineOffset: "-2px" } : undefined}
       >
-        <div className="relative isolate w-full border-r-2 border-[var(--pt-ink)] bg-[var(--pt-bg)]">
+        <div className="relative isolate min-h-[168px] w-full self-stretch overflow-hidden border-r-2 border-[var(--pt-ink)] bg-[#111]">
           <div
             className="absolute left-0 top-0 z-10 border-b-2 border-r-2 border-[var(--pt-ink)] px-1.5 py-0.5 text-[9px] font-bold text-white sm:px-2 sm:py-1 sm:text-[10px]"
             style={{ background: accent }}
           >
             {String(index + 1).padStart(2, "0")}
           </div>
-          {/* Locked 2:3 image — column may be taller; leftover stays cream, poster never crops */}
-          <div className="relative aspect-[2/3] w-full overflow-hidden">
-            <SafeNeoImage
-              src={moviePosterOrFallback(item.slug, item.poster)}
-              fallback={item.poster}
-              alt={item.title}
-              width={500}
-              height={750}
-              sizes="(max-width: 639px) 108px, 168px"
-              className="absolute inset-0 h-full w-full object-cover object-center"
-              priority={index < 2}
-            />
-            {watched && (
-              <div className="absolute bottom-0 right-0 z-10 border-l-2 border-t-2 border-[var(--pt-ink)] bg-[var(--pt-lime)] px-1.5 py-0.5 text-[8px] font-bold uppercase tracking-wider text-[var(--pt-ink)]">
-                Done
-              </div>
-            )}
-          </div>
+          <SafeNeoImage
+            src={moviePosterOrFallback(item.slug, item.poster)}
+            fallback={item.poster}
+            alt={item.title}
+            fill
+            sizes="256px"
+            className="object-cover object-[center_18%] sm:object-center"
+            priority={index < 2}
+          />
+          {watched && (
+            <div className="absolute bottom-0 right-0 z-10 border-l-2 border-t-2 border-[var(--pt-ink)] bg-[var(--pt-lime)] px-1.5 py-0.5 text-[8px] font-bold uppercase tracking-wider text-[var(--pt-ink)]">
+              Done
+            </div>
+          )}
         </div>
 
         <div className="flex min-w-0 flex-col justify-center p-2.5 sm:p-4 md:p-5">
