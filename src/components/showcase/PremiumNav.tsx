@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Check, Coffee, Copy, Share2, X } from "lucide-react";
+import { QRCodeSVG } from "qrcode.react";
 import { cn } from "@/lib/utils";
 import { SITE_NAME, SITE_TAGLINE, SITE_URL } from "@/lib/site";
 
@@ -283,29 +284,43 @@ function SupportPopup({
               {UPI_ID}
             </p>
 
-            <div className="mt-3 grid grid-cols-1 gap-2 sm:grid-cols-2">
-              <button
-                type="button"
-                onClick={copyUpi}
-                className="inline-flex items-center justify-center gap-1.5 border-2 border-[var(--pt-ink)] bg-[var(--pt-lime)] px-3 py-2.5 text-[11px] font-bold uppercase tracking-wider text-[var(--pt-ink)] shadow-[2px_2px_0_var(--pt-ink)] transition-transform hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[1px_1px_0_var(--pt-ink)]"
-              >
-                {upiCopied ? (
-                  <Check className="h-3.5 w-3.5" strokeWidth={2.5} aria-hidden />
-                ) : (
-                  <Copy className="h-3.5 w-3.5" strokeWidth={2.5} aria-hidden />
-                )}
-                {upiCopied ? "UPI copied!" : "Copy UPI ID"}
-              </button>
-              <a
-                href={UPI_PAY_URL}
-                className="inline-flex items-center justify-center gap-1.5 border-2 border-[var(--pt-ink)] bg-[var(--pt-blue)] px-3 py-2.5 text-[11px] font-bold uppercase tracking-wider text-white shadow-[2px_2px_0_var(--pt-ink)] transition-transform hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[1px_1px_0_var(--pt-ink)]"
-              >
-                Pay with UPI app
-              </a>
+            <div className="mt-3 flex flex-col items-center gap-3 sm:flex-row sm:items-start">
+              <div className="shrink-0 border-2 border-[var(--pt-ink)] bg-white p-2 shadow-[3px_3px_0_var(--pt-ink)]">
+                <QRCodeSVG
+                  value={UPI_PAY_URL}
+                  size={168}
+                  level="M"
+                  includeMargin={false}
+                  bgColor="#ffffff"
+                  fgColor="#1a1a1a"
+                  title="UPI QR code for Marvel Timeline support"
+                />
+              </div>
+              <div className="min-w-0 flex-1 space-y-2">
+                <p className="text-[11px] leading-relaxed text-[var(--pt-muted)] sm:text-[12px]">
+                  Scan with any UPI app (GPay, PhonePe, Paytm) to tip. Or copy the ID / open your app
+                  below.
+                </p>
+                <button
+                  type="button"
+                  onClick={copyUpi}
+                  className="inline-flex w-full items-center justify-center gap-1.5 border-2 border-[var(--pt-ink)] bg-[var(--pt-lime)] px-3 py-2.5 text-[11px] font-bold uppercase tracking-wider text-[var(--pt-ink)] shadow-[2px_2px_0_var(--pt-ink)] transition-transform hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[1px_1px_0_var(--pt-ink)]"
+                >
+                  {upiCopied ? (
+                    <Check className="h-3.5 w-3.5" strokeWidth={2.5} aria-hidden />
+                  ) : (
+                    <Copy className="h-3.5 w-3.5" strokeWidth={2.5} aria-hidden />
+                  )}
+                  {upiCopied ? "UPI copied!" : "Copy UPI ID"}
+                </button>
+                <a
+                  href={UPI_PAY_URL}
+                  className="inline-flex w-full items-center justify-center gap-1.5 border-2 border-[var(--pt-ink)] bg-[var(--pt-blue)] px-3 py-2.5 text-[11px] font-bold uppercase tracking-wider text-white shadow-[2px_2px_0_var(--pt-ink)] transition-transform hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[1px_1px_0_var(--pt-ink)]"
+                >
+                  Pay with UPI app
+                </a>
+              </div>
             </div>
-            <p className="mt-2 text-[10px] leading-relaxed text-[var(--pt-faint)]">
-              “Pay with UPI app” opens GPay / PhonePe / Paytm on phones. On desktop, copy the UPI ID.
-            </p>
           </div>
         </div>
       </div>
