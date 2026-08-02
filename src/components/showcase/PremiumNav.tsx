@@ -11,7 +11,7 @@ const SHARE_TITLE = "Marvel Timeline";
 const SHARE_TEXT = "MCU chronological watch order — tick what you've seen.";
 
 const links = [
-  { href: "/timeline", label: "Timeline" },
+  { href: "/", label: "Timeline" },
   { href: "/characters", label: "Characters" },
   { href: "/comics", label: "Comics" },
 ];
@@ -191,7 +191,7 @@ export function PremiumNav() {
       <header className="sticky top-0 z-50 border-b-2 border-[var(--pt-ink)] bg-[var(--pt-bg)]/95 backdrop-blur-sm">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-2 px-3 py-2.5 sm:gap-4 sm:px-4 sm:py-3 md:px-6">
           <Link
-            href="/timeline"
+            href="/"
             className="min-w-0 truncate font-display text-sm font-bold tracking-tight sm:text-base md:text-lg"
             aria-label="Marvel Timeline — home"
           >
@@ -203,7 +203,7 @@ export function PremiumNav() {
               {links.map((link) => {
                 const active =
                   pathname === link.href ||
-                  (pathname === "/" && link.href === "/timeline");
+                  (link.href === "/" && (pathname === "/" || pathname === "/timeline"));
                 return (
                   <Link
                     key={link.href}

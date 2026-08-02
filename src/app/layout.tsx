@@ -15,6 +15,7 @@ const mono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://marveltimeline-six.vercel.app"),
   title: "Marvel Timeline — MCU Watch Order",
   description:
     "Marvel Timeline: chronological MCU films, series, and specials. Tick what you've watched — saved on your device.",
