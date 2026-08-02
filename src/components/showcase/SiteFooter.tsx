@@ -16,7 +16,7 @@ const nav = [
 
 export function SiteFooter() {
   return (
-    <footer className="relative z-10 mt-10 border-t-2 border-[var(--pt-ink)] bg-[var(--pt-bg)] pb-28 sm:pb-24 md:pb-10">
+    <footer className="relative z-10 mt-10 border-t-2 border-[var(--pt-ink)] bg-[var(--pt-bg)] pb-28 sm:pb-28 md:pb-32">
       <div className="mx-auto grid max-w-6xl gap-8 px-3 py-8 sm:px-4 sm:py-10 md:grid-cols-[1.2fr_1fr_1fr] md:px-6 md:py-12">
         <div>
           <p className="font-display text-lg font-bold tracking-tight sm:text-xl">

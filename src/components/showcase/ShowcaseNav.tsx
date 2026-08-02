@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 const links = [
-  { href: "/timeline", label: "TIMELINE" },
+  { href: "/", label: "TIMELINE" },
   { href: "/characters", label: "CHARACTERS" },
 ];
 
@@ -16,7 +16,7 @@ export function ShowcaseNav() {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 md:px-8">
-        <Link href="/timeline">
+        <Link href="/">
           <motion.div
             whileHover={{ x: 3, y: 3, boxShadow: "5px 5px 0 var(--fire-bright)" }}
             whileTap={{ scale: 0.97 }}
@@ -28,7 +28,7 @@ export function ShowcaseNav() {
 
         <div className="flex gap-2 md:gap-3">
           {links.map((link) => {
-            const active = pathname === link.href || (pathname === "/" && link.href === "/timeline");
+            const active = pathname === link.href;
             return (
               <Link key={link.href} href={link.href}>
                 <motion.div

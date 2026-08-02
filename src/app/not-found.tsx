@@ -17,19 +17,19 @@ export default function NotFound() {
           href="/"
           className="border-2 border-[var(--pt-ink)] bg-[var(--pt-lime)] px-4 py-2 text-[11px] font-bold uppercase tracking-wider text-[var(--pt-ink)] shadow-[3px_3px_0_var(--pt-ink)]"
         >
-          Home →
-        </Link>
-        <Link
-          href="/timeline"
-          className="border-2 border-[var(--pt-ink)] bg-white px-4 py-2 text-[11px] font-bold uppercase tracking-wider shadow-[3px_3px_0_var(--pt-ink)]"
-        >
-          Timeline
+          Timeline →
         </Link>
         <Link
           href="/characters"
           className="border-2 border-[var(--pt-ink)] bg-white px-4 py-2 text-[11px] font-bold uppercase tracking-wider shadow-[3px_3px_0_var(--pt-ink)]"
         >
           Characters
+        </Link>
+        <Link
+          href="/comics"
+          className="border-2 border-[var(--pt-ink)] bg-white px-4 py-2 text-[11px] font-bold uppercase tracking-wider shadow-[3px_3px_0_var(--pt-ink)]"
+        >
+          Comics
         </Link>
       </div>
     </main>

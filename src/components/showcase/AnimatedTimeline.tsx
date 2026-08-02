@@ -57,7 +57,6 @@ function PremiumWatch({ slug }: { slug: string }) {
   const links = getWatchLinks(slug);
   if (!links.length) return null;
   const primary = links.find((l) => l.primary) ?? links[0];
-  const secondary = links.filter((l) => l !== primary).slice(0, 2);
 
   return (
     <div className="mt-2 flex flex-wrap items-center gap-1 sm:mt-3 sm:gap-1.5">
@@ -65,17 +64,6 @@ function PremiumWatch({ slug }: { slug: string }) {
         Watch · {primary.platform}
         <span aria-hidden>↗</span>
       </a>
-      {secondary.map((link) => (
-        <a
-          key={link.url}
-          href={link.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="pt-watch-secondary"
-        >
-          {link.platform}
-        </a>
-      ))}
     </div>
   );
 }
@@ -381,7 +369,7 @@ export function AnimatedTimelineShowcase({ items }: { items: CatalogItem[] }) {
 
       <Hero count={items.length} />
 
-      <div className="mx-auto max-w-6xl px-3 pb-24 pr-[4.25rem] sm:px-4 sm:pr-20 md:px-6 md:pr-28 lg:pr-32">
+      <div className="mx-auto max-w-6xl px-3 pb-28 pr-[4.25rem] sm:px-4 sm:pb-28 sm:pr-20 md:px-6 md:pb-32 md:pr-28 lg:pr-32">
         <div className="mb-6 grid grid-cols-4 gap-2 sm:mb-8 sm:gap-3">
           <Stat value={movies} label="Films" accent="#c8ff00" />
           <Stat value={series} label="Series" accent="#2b6cff" />

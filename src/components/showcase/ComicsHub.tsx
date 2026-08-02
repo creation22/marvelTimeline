@@ -176,16 +176,21 @@ export function ComicsHub({ orders }: { orders: ComicReadingOrder[] }) {
     const q = filter.trim().toLowerCase();
     if (!q) return orders;
     return orders
-      .map((order) => ({
-        ...order,
-        comics: order.comics.filter(
-          (c) =>
-            c.title.toLowerCase().includes(q) ||
-            c.overview.toLowerCase().includes(q) ||
-            c.searchQuery.toLowerCase().includes(q)
-        ),
-      }))
-      .filter((o) => o.name.toLowerCase().includes(q) || o.comics.length > 0);
+      .map((order) => {
+        const nameMatch = order.name.toLowerCase().includes(q);
+        return {
+          ...order,
+          comics: nameMatch
+            ? order.comics
+            : order.comics.filter(
+                (c) =>
+                  c.title.toLowerCase().includes(q) ||
+                  c.overview.toLowerCase().includes(q) ||
+                  c.searchQuery.toLowerCase().includes(q)
+              ),
+        };
+      })
+      .filter((o) => o.comics.length > 0);
   }, [orders, filter]);
 
   return (
@@ -195,7 +200,7 @@ export function ComicsHub({ orders }: { orders: ComicReadingOrder[] }) {
       />
       <PremiumNav />
 
-      <div className="mx-auto max-w-6xl px-3 pb-28 pt-6 sm:px-4 sm:pb-24 sm:pt-8 md:px-6 md:pb-16">
+      <div className="mx-auto max-w-6xl px-3 pb-28 pt-6 sm:px-4 sm:pb-28 sm:pt-8 md:px-6 md:pb-32">
         <section className="relative mb-6 overflow-hidden sm:mb-8">
           <motion.div
             className="pointer-events-none absolute -left-12 top-0 h-40 w-40 rounded-full bg-[#2b6cff]/10 blur-3xl"
@@ -220,7 +225,7 @@ export function ComicsHub({ orders }: { orders: ComicReadingOrder[] }) {
           <div className="mt-5 grid grid-cols-2 gap-2 sm:grid-cols-4 sm:gap-3">
             <Stat value={orders.length} label="Reading orders" accent="#c8ff00" />
             <Stat value={totalEntries} label="Curated picks" accent="#2b6cff" />
-            <Stat value={7} label="Themes" accent="#e11d2e" />
+            <Stat value={orders.length} label="Themes" accent="#e11d2e" />
             <Stat value={1} label="Platform" accent="#ffd400" subtitle="Marvel Unlimited" />
           </div>
         </section>

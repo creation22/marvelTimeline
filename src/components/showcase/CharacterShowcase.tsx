@@ -48,7 +48,7 @@ function AppearanceCard({ item }: { item: CatalogItem }) {
       className="pt-hard flex flex-col overflow-hidden transition-shadow hover:shadow-[6px_6px_0_var(--pt-ink)]"
     >
       <Link
-        href={`/timeline#${item.slug}`}
+        href={`/#${item.slug}`}
         className="relative block aspect-[2/3] overflow-hidden border-b-2 border-[var(--pt-ink)]"
       >
         <SafeNeoImage
@@ -64,7 +64,7 @@ function AppearanceCard({ item }: { item: CatalogItem }) {
         </span>
       </Link>
       <div className="flex flex-1 flex-col gap-1.5 p-2.5">
-        <Link href={`/timeline#${item.slug}`}>
+        <Link href={`/#${item.slug}`}>
           <h4 className="font-display text-sm font-bold leading-tight tracking-tight line-clamp-2 hover:text-[var(--pt-red)]">
             {item.title}
           </h4>
@@ -188,7 +188,7 @@ function CharacterDetail({
               Jump to the timeline or open a watch link
             </p>
           </div>
-          <Link href="/timeline" className="text-[11px] font-bold uppercase tracking-wider text-[var(--pt-red)]">
+          <Link href="/" className="text-[11px] font-bold uppercase tracking-wider text-[var(--pt-red)]">
             Full timeline →
           </Link>
         </div>
@@ -292,7 +292,7 @@ export function CharacterShowcase({
       />
       <PremiumNav />
 
-      <div className="mx-auto max-w-6xl px-3 pb-24 pt-6 sm:px-4 sm:pt-8 md:px-6">
+      <div className="mx-auto max-w-6xl px-3 pb-28 pt-6 sm:px-4 sm:pb-28 sm:pt-8 md:px-6 md:pb-32">
         <section className="relative mb-8 overflow-hidden">
           <motion.div
             className="pointer-events-none absolute -left-12 top-0 h-40 w-40 rounded-full bg-[#e11d2e]/10 blur-3xl"
