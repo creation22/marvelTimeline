@@ -1,36 +1,109 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Marvel Timeline
+
+The ultimate Marvel Cinematic Universe (MCU) companion — explore movies, characters, events, timelines, and story arcs.
+
+## Tech Stack
+
+- **Next.js 16** (App Router) + **React 19** + **TypeScript**
+- **Tailwind CSS v4** + **Shadcn/UI**
+- **Framer Motion** for animations
+- **TanStack Query** + **Zustand** for state management
+- **Prisma ORM** + **PostgreSQL** (schema ready, static data active)
+- **Lucide Icons**
+
+## Features
+
+- **Homepage** — Hero, search, quick navigation, trending content
+- **Chronological Timeline** — Interactive vertical timeline with animated movie cards
+- **Movies** — Full detail pages with characters, events, locations, stones
+- **Characters** — Biography, Story Mode journey timeline, relationships, quotes
+- **Events** — Major MCU events with consequences and connections
+- **Infinity Stones** — Owner timelines and movie appearances
+- **Locations** — Wakanda, Asgard, Knowhere, and more
+- **Organizations** — Avengers, S.H.I.E.L.D., Guardians, TVA, etc.
+- **Multiverse Explorer** — Universe variants and connections
+- **Watch Guide** — Chronological, release, character, and saga viewing orders
+- **Dashboard** — Watch progress, favorites, achievements
+- **Admin Panel** — CRUD interface (ready for database connection)
+- **Global Search** — Instant search across all content types
+- **User Progress** — Mark watched, favorites, watchlists (localStorage via Zustand)
 
 ## Getting Started
 
-First, run the development server:
-
 ```bash
+# Install dependencies
+npm install
+
+# Run development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
+# Build for production
+npm run build
+
+# Start production server
+npm start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Database Setup (Optional)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+The app runs with static MCU data out of the box. To connect PostgreSQL:
 
-## Learn More
+```bash
+# Configure DATABASE_URL in .env
+DATABASE_URL="postgresql://user:password@localhost:5432/marveltimeline"
 
-To learn more about Next.js, take a look at the following resources:
+# Generate Prisma client
+npm run db:generate
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# Run migrations
+npm run db:migrate
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+# Seed database
+npm run db:seed
+```
 
-## Deploy on Vercel
+## Project Structure
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
+src/
+├── app/                    # Next.js App Router pages & API routes
+│   ├── api/                # REST API endpoints
+│   ├── movies/             # Movie listing & detail pages
+│   ├── characters/         # Character listing & detail pages
+│   ├── events/             # Event pages
+│   ├── timeline/           # Chronological timeline
+│   ├── infinity-stones/    # Infinity Stones section
+│   ├── locations/          # Location pages
+│   ├── organizations/      # Organization pages
+│   ├── multiverse/         # Multiverse explorer
+│   ├── watch-guide/        # Watch order guides
+│   ├── dashboard/          # User dashboard
+│   └── admin/              # Admin panel
+├── components/
+│   ├── ui/                 # Shadcn/UI components
+│   ├── layout/             # Navbar, Footer
+│   ├── movies/             # MovieCard
+│   ├── characters/         # CharacterCard, StoryModeTimeline
+│   ├── timeline/           # TimelineView
+│   ├── home/               # HeroSection, QuickNav
+│   └── shared/             # SearchBar, Breadcrumbs, etc.
+├── data/                   # MCU static data
+├── lib/                    # Utilities & data service
+├── store/                  # Zustand stores
+└── types/                  # TypeScript interfaces
+prisma/
+├── schema.prisma           # Full relational database schema
+└── seed.ts                 # Database seed script
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Theme
+
+- **Black** `#0B0B0B` — Primary background
+- **Marvel Red** `#ED1D24` — Accent color
+- Dark theme with glassmorphism, smooth animations, and responsive layouts
+
+## License
+
+Fan project for educational purposes. Not affiliated with Marvel Studios or Disney.
