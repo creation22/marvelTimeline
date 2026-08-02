@@ -7,21 +7,14 @@ export interface WatchLink {
 }
 
 /**
- * Disney+ deep links like /movies/.../ID are unreliable:
- * - Disney has moved many titles to /browse/entity-… URLs
- * - In India, disneyplus.com redirects to JioHotstar and drops old deep-link paths
- *   (users land on Hotstar home instead of the title)
+ * One Disney+ search URL works in both regions:
+ * - US / most countries → stays on disneyplus.com search for that title
+ * - India → Disney+ redirects to JioHotstar and keeps ?q= so the title is searched
  *
- * Title search is the reliable option: India keeps ?q= on the Hotstar redirect,
- * and other regions open Disney+ search for that title.
+ * Old /movies/.../ID deep links break in India (redirect to Hotstar home with no title).
  */
 function disneyPlusSearchUrl(title: string): string {
   return `https://www.disneyplus.com/browse/search?q=${encodeURIComponent(title)}`;
-}
-
-/** India-friendly Hotstar search (same catalog as Disney+ Hotstar / JioHotstar). */
-function hotstarSearchUrl(title: string): string {
-  return `https://www.hotstar.com/in/explore?search_query=${encodeURIComponent(title)}`;
 }
 
 export function getWatchLinks(slug: string): WatchLink[] {
@@ -33,10 +26,6 @@ export function getWatchLinks(slug: string): WatchLink[] {
       platform: "Disney+",
       url: disneyPlusSearchUrl(item.title),
       primary: true,
-    },
-    {
-      platform: "JioHotstar",
-      url: hotstarSearchUrl(item.title),
     },
   ];
 }
