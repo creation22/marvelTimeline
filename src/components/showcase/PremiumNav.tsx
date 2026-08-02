@@ -5,10 +5,11 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Check, Coffee, Copy, Share2 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { SITE_NAME, SITE_TAGLINE, SITE_URL } from "@/lib/site";
 
 const SUPPORT_URL = "https://buymeacoffee.com/creation22";
-const SHARE_TITLE = "Marvel Timeline";
-const SHARE_TEXT = "MCU chronological watch order — tick what you've seen.";
+const SHARE_TITLE = SITE_NAME;
+const SHARE_TEXT = SITE_TAGLINE;
 
 const links = [
   { href: "/", label: "Timeline" },
@@ -17,8 +18,14 @@ const links = [
 ];
 
 function getShareUrl() {
-  if (typeof window === "undefined") return "https://github.com/creation22/marvelTimeline";
-  return window.location.origin + (window.location.pathname || "/");
+  if (typeof window === "undefined") return SITE_URL;
+  const path = window.location.pathname === "/" ? "" : window.location.pathname;
+  const host = window.location.hostname;
+  // Always advertise the custom domain (even from *.vercel.app / local)
+  if (host === "localhost" || host === "127.0.0.1" || host.endsWith(".vercel.app")) {
+    return SITE_URL + path;
+  }
+  return window.location.origin + path;
 }
 
 function ShareMenu() {
@@ -82,10 +89,8 @@ function ShareMenu() {
     }
   }, []);
 
-  const encoded = encodeURIComponent(shareUrl || "https://github.com/creation22/marvelTimeline");
-  const textEncoded = encodeURIComponent(
-    `${SHARE_TEXT} ${shareUrl || "https://github.com/creation22/marvelTimeline"}`
-  );
+  const encoded = encodeURIComponent(shareUrl || SITE_URL);
+  const textEncoded = encodeURIComponent(`${SHARE_TEXT} ${shareUrl || SITE_URL}`);
 
   const social = [
     { label: "WhatsApp", href: `https://wa.me/?text=${textEncoded}`, bg: "#25D366" },

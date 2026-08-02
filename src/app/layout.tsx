@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Space_Grotesk, JetBrains_Mono } from "next/font/google";
+import { SITE_NAME, SITE_TAGLINE, SITE_URL } from "@/lib/site";
 import "./globals.css";
 
 const space = Space_Grotesk({
@@ -15,10 +16,24 @@ const mono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://marveltimeline-six.vercel.app"),
-  title: "Marvel Timeline — MCU Watch Order",
-  description:
-    "Marvel Timeline: chronological MCU films, series, and specials. Tick what you've watched — saved on your device.",
+  metadataBase: new URL(SITE_URL),
+  title: `${SITE_NAME} — MCU Watch Order`,
+  description: `${SITE_NAME}: chronological MCU films, series, and specials. Tick what you've watched — saved on your device.`,
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    type: "website",
+    url: SITE_URL,
+    title: `${SITE_NAME} — MCU Watch Order`,
+    description: SITE_TAGLINE,
+    siteName: SITE_NAME,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${SITE_NAME} — MCU Watch Order`,
+    description: SITE_TAGLINE,
+  },
 };
 
 export const viewport: Viewport = {
