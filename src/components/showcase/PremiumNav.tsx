@@ -334,7 +334,7 @@ export function PremiumNav() {
 
   return (
     <>
-      <header className="sticky top-0 z-50 border-b-2 border-[var(--pt-ink)] bg-[var(--pt-bg)]/95 backdrop-blur-sm">
+      <header className="sticky top-0 z-50 border-b-2 border-[var(--pt-ink)] bg-[var(--pt-bg)] sm:bg-[var(--pt-bg)]/95 sm:backdrop-blur-sm">
         <div className="mx-auto flex max-w-6xl items-center justify-between gap-2 px-3 py-2.5 sm:gap-4 sm:px-4 sm:py-3 md:px-6">
           <Link
             href="/"

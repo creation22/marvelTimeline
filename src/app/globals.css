@@ -144,6 +144,12 @@
   padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 
+/* Skip offscreen card work while scrolling */
+.premium-timeline article[id] {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 280px;
+}
+
 .premium-timeline .font-display {
   font-family: var(--font-display), system-ui, sans-serif;
 }

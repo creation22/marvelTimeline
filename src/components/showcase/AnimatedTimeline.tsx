@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
-import { motion, useScroll, useSpring, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, type MotionValue } from "framer-motion";
 import type { CatalogItem } from "@/data/catalog";
 import { getCharacterBySlug } from "@/data/catalog";
 import { characterHeroOrFallback, moviePosterOrFallback } from "@/lib/images";
@@ -71,44 +71,21 @@ function PremiumWatch({ slug }: { slug: string }) {
 function Hero({ count }: { count: number }) {
   return (
     <section className="relative overflow-hidden px-3 pb-8 pt-8 sm:px-4 sm:pb-10 sm:pt-10 md:px-6 md:pb-12 md:pt-12">
-      <motion.div
-        className="pointer-events-none absolute -left-16 top-8 h-48 w-48 rounded-full bg-[#2b6cff]/15 blur-3xl"
-        animate={{ opacity: [0.4, 0.7, 0.4] }}
-        transition={{ duration: 6, repeat: Infinity }}
-      />
-      <motion.div
-        className="pointer-events-none absolute right-10 top-4 h-36 w-36 rounded-full bg-[#c8ff00]/30 blur-3xl"
-        animate={{ opacity: [0.5, 0.85, 0.5] }}
-        transition={{ duration: 5, repeat: Infinity }}
-      />
+      <div className="pointer-events-none absolute -left-16 top-8 h-48 w-48 rounded-full bg-[#2b6cff]/15 blur-3xl" />
+      <div className="pointer-events-none absolute right-10 top-4 h-36 w-36 rounded-full bg-[#c8ff00]/30 blur-3xl" />
 
       <div className="relative z-10 mx-auto max-w-6xl md:pr-0">
-        <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-          className="font-display text-[clamp(2.1rem,9vw,5.5rem)] font-bold leading-[0.92] tracking-[-0.04em]"
-        >
+        <h1 className="font-display text-[clamp(2.1rem,9vw,5.5rem)] font-bold leading-[0.92] tracking-[-0.04em]">
           MARVEL{" "}
           <span className="text-[var(--pt-red)]">TIMELINE</span>
-        </motion.h1>
+        </h1>
 
-        <motion.p
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.12, duration: 0.5 }}
-          className="mt-5 max-w-xl text-[13px] leading-relaxed text-[var(--pt-muted)] md:mt-6 md:text-sm"
-        >
+        <p className="mt-5 max-w-xl text-[13px] leading-relaxed text-[var(--pt-muted)] md:mt-6 md:text-sm">
           Chronological MCU watch order — {count} films, series, and specials. Tick what
           you&apos;ve seen; progress stays on this device.
-        </motion.p>
+        </p>
 
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.22 }}
-          className="mt-6 flex flex-wrap gap-2"
-        >
+        <div className="mt-6 flex flex-wrap gap-2">
           <a
             href="#captain-america-the-first-avenger"
             className="border-2 border-[var(--pt-ink)] bg-[var(--pt-lime)] px-4 py-2 text-[10px] font-bold uppercase tracking-wider text-[var(--pt-ink)] shadow-[3px_3px_0_var(--pt-ink)] transition-transform hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-[1px_1px_0_var(--pt-ink)] sm:text-[11px]"
@@ -118,7 +95,7 @@ function Hero({ count }: { count: number }) {
           <span className="border-2 border-[var(--pt-ink)] bg-white px-3 py-2 text-[10px] font-bold uppercase tracking-wider shadow-[3px_3px_0_var(--pt-ink)] sm:text-[11px]">
             {count} titles
           </span>
-        </motion.div>
+        </div>
       </div>
     </section>
   );
@@ -132,9 +109,8 @@ function CharacterStrip({ slugs }: { slugs: string[] }) {
         const char = getCharacterBySlug(slug);
         if (!char) return null;
         return (
-          <motion.div
+          <div
             key={slug}
-            whileHover={{ y: -2 }}
             className="relative h-8 w-8 shrink-0 overflow-hidden border-2 border-[var(--pt-ink)] bg-[var(--pt-bg)] shadow-[2px_2px_0_var(--pt-ink)] sm:h-9 sm:w-9"
             title={char.name}
           >
@@ -145,7 +121,7 @@ function CharacterStrip({ slugs }: { slugs: string[] }) {
               loading="lazy"
               decoding="async"
             />
-          </motion.div>
+          </div>
         );
       })}
       {slugs.length > max && (
@@ -211,14 +187,7 @@ function TimelineEntry({
   const accent = PHASE_ACCENT[item.phase] ?? "#e11d2e";
 
   return (
-    <motion.article
-      initial={{ opacity: 0.35, y: 14 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2, margin: "80px 0px" }}
-      transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-      className="scroll-mt-20 will-change-transform"
-      id={item.slug}
-    >
+    <article className="scroll-mt-20 [content-visibility:auto] [contain-intrinsic-size:auto_280px]" id={item.slug}>
       <div
         className="pt-hard group grid grid-cols-[108px_minmax(0,1fr)] items-stretch overflow-hidden transition-shadow duration-200 hover:shadow-[6px_6px_0_var(--pt-ink)] sm:grid-cols-[132px_minmax(0,1fr)] md:grid-cols-[152px_minmax(0,1fr)] lg:grid-cols-[168px_minmax(0,1fr)]"
         style={watched ? { outline: "2px solid #c8ff00", outlineOffset: "-2px" } : undefined}
@@ -292,7 +261,7 @@ function TimelineEntry({
           <PremiumWatch slug={item.slug} />
         </div>
       </div>
-    </motion.article>
+    </article>
   );
 }
 
@@ -301,7 +270,7 @@ function ProgressHud({
   count,
   watchedCount,
 }: {
-  progress: ReturnType<typeof useSpring>;
+  progress: MotionValue<number>;
   count: number;
   watchedCount: number;
 }) {
@@ -334,7 +303,6 @@ export function AnimatedTimelineShowcase({ items }: { items: CatalogItem[] }) {
     target: containerRef,
     offset: ["start start", "end end"],
   });
-  const smooth = useSpring(scrollYProgress, { stiffness: 120, damping: 32, mass: 0.2 });
 
   const [watched, setWatched] = useState<WatchedMap>({});
 
@@ -352,8 +320,8 @@ export function AnimatedTimelineShowcase({ items }: { items: CatalogItem[] }) {
 
   const watchedCount = countWatched(watched);
   const pathChars = useMemo(() => collectPathCharacters(items), [items]);
-  const movies = items.filter((i) => i.mediaType === "MOVIE").length;
-  const series = items.filter((i) => i.mediaType === "SERIES").length;
+  const movies = useMemo(() => items.filter((i) => i.mediaType === "MOVIE").length, [items]);
+  const series = useMemo(() => items.filter((i) => i.mediaType === "SERIES").length, [items]);
   const specials = items.length - movies - series;
 
   return (
@@ -362,8 +330,8 @@ export function AnimatedTimelineShowcase({ items }: { items: CatalogItem[] }) {
       <div className="relative z-10">
       <Marquee text={`MCU Timeline /// ${items.length} titles /// Tick what you've watched /// Saved on this device`} />
       <PremiumNav />
-      <CharacterPathRail characterSlugs={pathChars} progress={smooth} />
-      <ProgressHud progress={smooth} count={items.length} watchedCount={watchedCount} />
+      <CharacterPathRail characterSlugs={pathChars} progress={scrollYProgress} />
+      <ProgressHud progress={scrollYProgress} count={items.length} watchedCount={watchedCount} />
 
       <Hero count={items.length} />
 
@@ -400,12 +368,7 @@ export function AnimatedTimelineShowcase({ items }: { items: CatalogItem[] }) {
           })}
         </div>
 
-        <motion.footer
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="pt-hard mt-12 p-6 text-center md:p-8"
-        >
+        <footer className="pt-hard mt-12 p-6 text-center md:p-8">
           <p className="font-display text-2xl font-bold tracking-tight md:text-3xl">
             End of the known <span className="bg-[var(--pt-lime)] px-1">saga</span>
           </p>
@@ -415,7 +378,7 @@ export function AnimatedTimelineShowcase({ items }: { items: CatalogItem[] }) {
           <Link href="/characters" className="pt-watch-primary mt-5 inline-flex">
             Meet the characters →
           </Link>
-        </motion.footer>
+        </footer>
       </div>
       </div>
       <SiteFooter />

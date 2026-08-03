@@ -64,15 +64,15 @@ export function CharacterPathRail({
     return PATH_LENGTH - clamped * PATH_LENGTH;
   });
 
-  // Quantize progress updates so we don't re-render 60fps for avatars
+  // Quantize progress updates so we don't re-render every scroll frame
   useMotionValueEvent(progress, "change", (v) => {
-    const bucket = Math.round(Math.max(0, Math.min(1, v)) * 24);
+    const bucket = Math.round(Math.max(0, Math.min(1, v)) * 12);
     if (bucket === lastBucket.current) return;
     lastBucket.current = bucket;
     setDrawnBucket(bucket);
   });
 
-  const drawn = drawnBucket / 24;
+  const drawn = drawnBucket / 12;
 
   return (
     <aside
