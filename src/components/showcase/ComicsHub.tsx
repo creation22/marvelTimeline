@@ -8,18 +8,7 @@ import { getTotalComicEntries } from "@/data/comic-reading-orders";
 import { PremiumNav } from "./PremiumNav";
 import { SiteFooter } from "./SiteFooter";
 import { getComicReadLinks } from "@/lib/comics";
-
-function Marquee({ text }: { text: string }) {
-  const line = `${text}  ///  `.repeat(6);
-  return (
-    <div className="pt-marquee">
-      <div className="pt-marquee-track">
-        <span>{line}</span>
-        <span>{line}</span>
-      </div>
-    </div>
-  );
-}
+import { TopHireBanner } from "./TopHireBanner";
 
 const TYPE_LABEL: Record<string, string> = {
   EVENT: "Event",
@@ -195,8 +184,8 @@ export function ComicsHub({ orders }: { orders: ComicReadingOrder[] }) {
 
   return (
     <div className="premium-timeline relative overflow-x-hidden">
-      <Marquee
-        text={`${orders.length} reading orders /// ${totalEntries} curated comics /// Read on Marvel Unlimited`}
+      <TopHireBanner
+        extra={`${orders.length} reading orders · ${totalEntries} curated comics`}
       />
       <PremiumNav />
 

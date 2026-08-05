@@ -19,6 +19,7 @@ import { SafeNeoImage } from "./SafeNeoImage";
 import { PremiumNav } from "./PremiumNav";
 import { SiteFooter } from "./SiteFooter";
 import { CharacterPathRail, collectPathCharacters } from "./CharacterPathRail";
+import { TopHireBanner } from "./TopHireBanner";
 
 const TimelineAtmosphere = dynamic(
   () =>
@@ -40,18 +41,6 @@ const PHASE_ACCENT: Record<number, string> = {
   5: "#c8ff00",
   6: "#1a1a1a",
 };
-
-function Marquee({ text }: { text: string }) {
-  const line = `${text}  ///  `.repeat(8);
-  return (
-    <div className="pt-marquee">
-      <div className="pt-marquee-track">
-        <span>{line}</span>
-        <span>{line}</span>
-      </div>
-    </div>
-  );
-}
 
 function PremiumWatch({ slug }: { slug: string }) {
   const links = getWatchLinks(slug);
@@ -360,7 +349,9 @@ export function AnimatedTimelineShowcase({ items }: { items: CatalogItem[] }) {
     <div ref={containerRef} className="premium-timeline relative">
       <TimelineAtmosphere />
       <div className="relative z-10">
-      <Marquee text={`MCU Timeline /// ${items.length} titles /// Tick what you've watched /// Saved on this device`} />
+      <TopHireBanner
+        extra={`MCU Timeline · ${items.length} titles · Tick what you've watched`}
+      />
       <PremiumNav />
       <CharacterPathRail characterSlugs={pathChars} progress={smooth} />
       <ProgressHud progress={smooth} count={items.length} watchedCount={watchedCount} />

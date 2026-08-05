@@ -248,9 +248,18 @@
   padding: 0.45rem 0;
 }
 
+.pt-marquee a {
+  color: inherit;
+  font-weight: 700;
+}
+
 .pt-marquee-track {
-  display: inline-block;
-  animation: pt-marquee 28s linear infinite;
+  display: inline-flex;
+  animation: pt-marquee 32s linear infinite;
+}
+
+.pt-marquee:hover .pt-marquee-track {
+  animation-play-state: paused;
 }
 
 @keyframes pt-marquee {

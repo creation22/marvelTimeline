@@ -11,6 +11,7 @@ import { SafeNeoImage } from "./SafeNeoImage";
 import { characterHeroOrFallback, moviePosterOrFallback } from "@/lib/images";
 import { getWatchLinks } from "@/lib/watch";
 import { cn } from "@/lib/utils";
+import { TopHireBanner } from "./TopHireBanner";
 
 type Char = CharacterCatalogItem;
 type AppearanceMap = Record<string, CatalogItem[]>;
@@ -24,18 +25,6 @@ const STATUS_COLOR: Record<string, string> = {
   SNAPPED: "#2b6cff",
   BLIPPED: "#00c2a8",
 };
-
-function Marquee({ text }: { text: string }) {
-  const line = `${text}  ///  `.repeat(6);
-  return (
-    <div className="pt-marquee">
-      <div className="pt-marquee-track">
-        <span>{line}</span>
-        <span>{line}</span>
-      </div>
-    </div>
-  );
-}
 
 function AppearanceCard({ item }: { item: CatalogItem }) {
   const watch = getWatchLinks(item.slug);
@@ -287,8 +276,8 @@ export function CharacterShowcase({
 
   return (
     <div className="premium-timeline relative">
-      <Marquee
-        text={`${characters.length} MCU characters /// Stories & powers in plain English /// Solo portraits`}
+      <TopHireBanner
+        extra={`${characters.length} MCU characters · Stories & powers`}
       />
       <PremiumNav />
 
